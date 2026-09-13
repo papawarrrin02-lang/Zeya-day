@@ -1,0 +1,1368 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>สุขสันต์วันเกิด </title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext x='50' y='78' font-size='80' text-anchor='middle'%3E%F0%9F%8E%82%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chonburi&family=Mali:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#FFF6EC;
+    --blush:#F6C9D3;
+    --plum:#4A2E3D;
+    --plum-soft:#7A5468;
+    --gold:#E3A857;
+    --night:#160B2E;
+    --night-2:#241541;
+    --star:#FFE29A;
+    --card:#FFFFFF;
+    --radius:22px;
+  }
+
+  *{box-sizing:border-box;}
+  html,body{
+    margin:0;padding:0;
+    width:100%;min-height:100%;
+    background:var(--cream);
+    color:var(--plum);
+    font-family:'Mali',cursive;
+    overflow-x:hidden;
+    -webkit-tap-highlight-color:transparent;
+  }
+  h1,h2,h3,.display{
+    font-family:'Chonburi',cursive;
+    font-weight:400;
+    line-height:1.35;
+  }
+  button{font-family:'Mali',cursive;cursor:pointer;border:none;}
+  ::selection{background:var(--blush);}
+
+  .page{
+    display:none;
+    min-height:100vh;
+    width:100%;
+    align-items:center;
+    justify-content:center;
+    padding:32px 18px 56px;
+    position:relative;
+  }
+  .page.active{display:flex;}
+
+  .stage{
+    width:100%;
+    max-width:560px;
+    margin:0 auto;
+    text-align:center;
+  }
+
+  .eyebrow{
+    display:none; /* explicitly avoided per design guidance */
+  }
+
+  /* ---------- Decorative warm background (default pages) ---------- */
+  .page.warm{
+    background:
+      radial-gradient(ellipse at 20% 15%, rgba(246,201,211,.55), transparent 55%),
+      radial-gradient(ellipse at 85% 85%, rgba(227,168,87,.25), transparent 55%),
+      var(--cream);
+  }
+
+  /* ---------- Space theme pages ---------- */
+  .page.space{
+    background:
+      radial-gradient(ellipse at 50% 0%, rgba(90,50,140,.35), transparent 60%),
+      linear-gradient(180deg, var(--night) 0%, var(--night-2) 100%);
+    color:#F3E9FF;
+    overflow:hidden;
+  }
+  .page.space h1,.page.space h2,.page.space h3{color:#FFF3D6;}
+  .starfield{
+    position:absolute; inset:0; pointer-events:none;
+  }
+  .starfield span{
+    position:absolute;
+    width:2px;height:2px;
+    background:#fff;
+    border-radius:50%;
+    opacity:.7;
+    animation:twinkle 3.5s ease-in-out infinite;
+  }
+  @keyframes twinkle{
+    0%,100%{opacity:.2; transform:scale(1);}
+    50%{opacity:1; transform:scale(1.6);}
+  }
+
+  /* ---------- Card ---------- */
+  .card{
+    background:var(--card);
+    border-radius:var(--radius);
+    padding:36px 28px;
+    box-shadow:0 18px 40px rgba(122,84,104,.16);
+  }
+  .page.space .card{
+    background:rgba(255,255,255,.06);
+    border:1px solid rgba(255,255,255,.18);
+    box-shadow:0 18px 50px rgba(0,0,0,.4);
+    backdrop-filter:blur(6px);
+  }
+
+  p.lead{
+    font-size:1.08rem;
+    line-height:1.9;
+    color:var(--plum-soft);
+    margin:14px 0 0;
+  }
+  .page.space p.lead{color:#DCCBEE;}
+
+  /* ---------- Buttons ---------- */
+  .btn{
+    display:inline-block;
+    padding:14px 34px;
+    border-radius:999px;
+    font-size:1.05rem;
+    background:var(--plum);
+    color:#fff;
+    transition:transform .18s ease, box-shadow .18s ease;
+    box-shadow:0 10px 22px rgba(74,46,61,.28);
+  }
+  .btn:hover{transform:translateY(-2px);}
+  .btn:active{transform:translateY(0);}
+  .btn.gold{background:var(--gold); box-shadow:0 10px 22px rgba(227,168,87,.35);}
+  .btn.ghost{
+    background:transparent;
+    border:1.5px solid rgba(255,255,255,.55);
+    color:#fff;
+  }
+  .btn.small{padding:10px 22px; font-size:.95rem;}
+  .nav-row{margin-top:30px;}
+
+  /* ---------- Page 1: Login ---------- */
+  #page1 .card{max-width:380px; margin:0 auto;}
+  #page1 .heart-icon{font-size:2.4rem; margin-bottom:6px;}
+  #page1 input{
+    width:100%;
+    padding:14px 16px;
+    border-radius:14px;
+    border:2px solid var(--blush);
+    font-size:1.1rem;
+    text-align:center;
+    letter-spacing:3px;
+    margin:18px 0 8px;
+    font-family:'Mali',cursive;
+    color:var(--plum);
+    background:#FFFBF7;
+  }
+  #page1 input:focus{outline:none; border-color:var(--gold);}
+  .shake{animation:shake .45s;}
+  @keyframes shake{
+    10%,90%{transform:translateX(-4px);}
+    20%,80%{transform:translateX(6px);}
+    30%,50%,70%{transform:translateX(-9px);}
+    40%,60%{transform:translateX(9px);}
+  }
+  #loginMsg{
+    min-height:24px;
+    font-size:.95rem;
+    color:#C9698B;
+    margin-top:4px;
+  }
+
+  /* ---------- Page 3: NASA ---------- */
+  .space-photo{
+    width:100%;
+    border-radius:18px;
+    overflow:hidden;
+    margin-bottom:18px;
+    border:1px solid rgba(255,255,255,.18);
+  }
+  .space-photo img{width:100%; display:block;}
+
+  /* ---------- Page 4: floating hearts/stars ---------- */
+  #page4{overflow:hidden;}
+  .float-field{
+    position:absolute; inset:0;
+  }
+  .floaty{
+    position:absolute;
+    font-size:1.9rem;
+    cursor:pointer;
+    animation:bob 4.5s ease-in-out infinite;
+    filter:drop-shadow(0 4px 10px rgba(0,0,0,.15));
+    user-select:none;
+  }
+  @keyframes bob{
+    0%,100%{transform:translateY(0) rotate(-4deg);}
+    50%{transform:translateY(-22px) rotate(4deg);}
+  }
+  .p4-hint{position:relative; z-index:2;}
+
+  .popup-overlay{
+    position:fixed; inset:0;
+    background:rgba(74,46,61,.45);
+    display:none;
+    align-items:center;
+    justify-content:center;
+    z-index:50;
+    padding:20px;
+  }
+  .popup-overlay.show{display:flex;}
+  .popup-box{
+    background:#fff;
+    border-radius:20px;
+    padding:28px 24px;
+    max-width:340px;
+    text-align:center;
+    box-shadow:0 20px 50px rgba(0,0,0,.25);
+  }
+  .popup-box p{font-size:1.05rem; line-height:1.7; color:var(--plum);}
+
+  /* ---------- Page 5: wishing star ---------- */
+  #page5{position:relative;}
+  .stage-open{max-width:480px;}
+  #wishTitle{
+    text-shadow:0 2px 14px rgba(0,0,0,.5);
+    transition:opacity .3s ease;
+  }
+  .wish-caption{
+    opacity:0;
+    transition:opacity .8s ease;
+    text-shadow:0 2px 10px rgba(0,0,0,.5);
+  }
+  .wish-caption.show{opacity:1;}
+
+  .meteor-stage{
+    position:relative;
+    height:300px;
+    margin:6px 0 4px;
+    overflow:hidden;
+  }
+  .meteor-layer{position:absolute; inset:0; pointer-events:none;}
+
+  /* the falling meteor (before it lands) */
+  .meteor{
+    position:absolute;
+    top:-6%;
+    left:78%;
+    width:5px;height:5px;
+    border-radius:50%;
+    background:#fff;
+    box-shadow:0 0 10px 3px #fff, 0 0 22px 8px rgba(255,241,191,.7);
+    animation:meteorFall 1.15s cubic-bezier(.35,.1,.65,1) forwards;
+  }
+  .meteor::before{
+    content:'';
+    position:absolute;
+    top:50%; right:50%;
+    width:150px; height:2px;
+    background:linear-gradient(90deg, rgba(255,255,255,0), rgba(255,247,214,.85));
+    transform-origin:right center;
+    transform:translateY(-50%) rotate(148deg);
+  }
+  @keyframes meteorFall{
+    0%{ top:-6%; left:78%; opacity:0; }
+    8%{ opacity:1; }
+    100%{ top:50%; left:50%; opacity:1; }
+  }
+
+  /* the realistic sparkle star, hidden until the meteor lands */
+  .wish-star{
+    position:absolute;
+    top:50%; left:50%;
+    transform:translate(-50%,-50%) scale(0);
+    width:120px; height:120px;
+    cursor:pointer;
+    user-select:none;
+    opacity:0;
+    filter:drop-shadow(0 0 8px rgba(255,226,154,.55));
+    transition:filter .2s ease;
+  }
+  .wish-star.landed{
+    animation:starLand .55s cubic-bezier(.3,1.6,.4,1) forwards;
+  }
+  @keyframes starLand{
+    0%{ transform:translate(-50%,-50%) scale(0); opacity:0; }
+    60%{ transform:translate(-50%,-50%) scale(1.15); opacity:1; }
+    100%{ transform:translate(-50%,-50%) scale(1); opacity:1; }
+  }
+  .wish-star.glow{
+    animation:glowPulse .5s ease-in-out infinite alternate;
+  }
+  @keyframes glowPulse{
+    from{filter:drop-shadow(0 0 10px var(--star)) drop-shadow(0 0 4px #fff);}
+    to{filter:drop-shadow(0 0 34px var(--star)) drop-shadow(0 0 16px #fff);}
+  }
+  .wish-star.fly{
+    animation:flyUp .9s ease-in forwards;
+  }
+  @keyframes flyUp{
+    0%{transform:translate(-50%,-50%) scale(1); opacity:1;}
+    100%{transform:translate(-50%,-260px) scale(.35); opacity:0;}
+  }
+  .sparkle{
+    position:absolute;
+    width:6px;height:6px;
+    border-radius:50%;
+    background:var(--star);
+    pointer-events:none;
+    animation:sparkleOut .6s ease-out forwards;
+  }
+  @keyframes sparkleOut{
+    to{transform:translate(var(--dx),var(--dy)) scale(0); opacity:0;}
+  }
+
+  /* ---------- Page 6: questions (chat style) ---------- */
+  .chat-log{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+    margin:18px 0;
+    text-align:left;
+  }
+  .bubble{
+    max-width:82%;
+    padding:11px 16px;
+    border-radius:16px;
+    font-size:.95rem;
+    line-height:1.6;
+    animation:bubbleIn .35s ease;
+  }
+  @keyframes bubbleIn{
+    from{opacity:0; transform:translateY(8px) scale(.97);}
+    to{opacity:1; transform:translateY(0) scale(1);}
+  }
+  .bubble.me{
+    align-self:flex-end;
+    background:var(--plum);
+    color:#fff;
+    border-bottom-right-radius:4px;
+  }
+  .bubble.reply{
+    align-self:flex-start;
+    background:var(--blush);
+    color:var(--plum);
+    border-bottom-left-radius:4px;
+  }
+
+  .q-block{
+    text-align:left;
+    animation:bubbleIn .3s ease;
+  }
+  .q-block label{
+    display:block;
+    font-size:1.02rem;
+    margin-bottom:10px;
+    color:var(--plum);
+  }
+  .q-block input[type=text]{
+    width:100%;
+    padding:12px 14px;
+    border-radius:12px;
+    border:2px solid var(--blush);
+    font-family:'Mali',cursive;
+    font-size:1rem;
+    background:#FFFBF7;
+    color:var(--plum);
+    margin-bottom:12px;
+  }
+  .q-block input[type=text]:focus{outline:none; border-color:var(--gold);}
+  .choice-row{display:flex; flex-wrap:wrap; gap:8px; margin-bottom:12px;}
+  .choice-btn{
+    padding:9px 16px;
+    border-radius:999px;
+    border:2px solid var(--blush);
+    background:#fff;
+    color:var(--plum-soft);
+    font-size:.92rem;
+  }
+  .choice-btn.picked{
+    background:var(--plum);
+    border-color:var(--plum);
+    color:#fff;
+  }
+  .q-hint{
+    min-height:20px;
+    font-size:.85rem;
+    color:#C9698B;
+    margin-bottom:6px;
+  }
+
+  /* ---------- Page 7: coupons (ticket style) ---------- */
+  #page7 .stage{max-width:920px;}
+  .coupon-cat{
+    text-align:left;
+    margin:26px 0 12px;
+    font-size:1.15rem;
+    color:var(--plum);
+  }
+  .coupon-cat:first-of-type{margin-top:6px;}
+  .coupon-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
+    gap:16px;
+  }
+
+  .ticket{
+    perspective:1200px;
+  }
+  .ticket-inner{
+    display:grid;
+    width:100%;
+    transition:transform .6s cubic-bezier(.4,.2,.2,1);
+    transform-style:preserve-3d;
+  }
+  .ticket.open .ticket-inner{transform:rotateY(180deg);}
+
+  .ticket-face{
+    grid-area:1/1;
+    backface-visibility:hidden;
+    -webkit-backface-visibility:hidden;
+    border-radius:14px;
+    box-shadow:0 8px 18px rgba(122,84,104,.12);
+  }
+  .ticket-face.back{transform:rotateY(180deg);}
+
+  /* front (closed ticket) */
+  .ticket-face.front{
+    background:#fff;
+    border:1.5px dashed var(--blush);
+    padding:20px 14px;
+    min-height:140px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    cursor:pointer;
+    gap:6px;
+  }
+  .ticket-face.front .num{font-size:.75rem; color:var(--gold);}
+  .ticket-face.front .title{font-size:1rem; color:var(--plum); line-height:1.4; margin:2px 0;}
+  .ticket-face.front .tap-hint{
+    font-size:.78rem;
+    color:var(--plum-soft);
+    opacity:.75;
+    animation:hintPulse 1.8s ease-in-out infinite;
+  }
+  @keyframes hintPulse{
+    0%,100%{opacity:.5;}
+    50%{opacity:.95;}
+  }
+
+  /* back (opened ticket) */
+  .ticket-face.back{
+    background:#fff;
+    display:flex;
+    min-height:140px;
+    overflow:hidden;
+  }
+  .ticket-main{
+    flex:1;
+    padding:16px 14px;
+    text-align:left;
+    cursor:pointer;
+    transition:filter .5s ease, opacity .5s ease;
+    position:relative;
+  }
+  .ticket-main .num{font-size:.75rem; color:var(--gold); display:block; margin-bottom:4px;}
+  .ticket-main .title{font-size:.98rem; color:var(--plum); margin:0 0 6px; line-height:1.4;}
+  .ticket-main .cond{font-size:.83rem; color:var(--plum-soft); line-height:1.55;}
+  .ticket-main.used{filter:grayscale(75%); opacity:.6;}
+
+  .used-stamp{
+    position:absolute;
+    top:8px;
+    right:8px;
+    border:2px solid #C9698B;
+    color:#C9698B;
+    font-size:.72rem;
+    padding:3px 8px;
+    border-radius:6px;
+    transform:rotate(-10deg) scale(0);
+    opacity:0;
+    transition:transform .4s cubic-bezier(.3,1.6,.5,1), opacity .3s ease;
+  }
+  .ticket-main.used .used-stamp{
+    transform:rotate(-10deg) scale(1);
+    opacity:1;
+  }
+
+  .ticket-divider{
+    position:relative;
+    width:0;
+    border-left:2px dashed var(--blush);
+  }
+  .notch{
+    position:absolute;
+    left:-8px;
+    width:16px;height:16px;
+    border-radius:50%;
+    background:var(--cream);
+    z-index:2;
+  }
+  .notch-top{top:-8px;}
+  .notch-bottom{bottom:-8px;}
+
+  .ticket-tear{
+    width:70px;
+    flex-shrink:0;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    padding:10px 6px;
+    text-align:center;
+    transition:transform .55s cubic-bezier(.5,-0.2,.6,1), opacity .5s ease;
+  }
+  .ticket-tear.torn{
+    transform:translateX(38px) translateY(-10px) rotate(22deg);
+    opacity:0;
+    pointer-events:none;
+  }
+  .tear-icon{font-size:1.3rem;}
+  .use-btn{
+    background:var(--plum);
+    color:#fff;
+    border-radius:999px;
+    padding:6px 10px;
+    font-size:.72rem;
+    line-height:1.3;
+  }
+  .use-btn:disabled{opacity:.5;}
+
+  @media (max-width:480px){
+    .ticket-tear{width:60px;}
+    .ticket-main .title{font-size:.92rem;}
+  }
+
+  /* ---------- Page 8: cake (realistic drip cake) ---------- */
+  .cake-scene{
+    position:relative;
+    width:260px;
+    margin:8px auto 30px;
+  }
+
+  /* ---- candles ---- */
+  .candle-row{
+    position:relative;
+    display:flex;
+    justify-content:center;
+    gap:16px;
+    height:46px;
+    z-index:5;
+  }
+  .candle{
+    position:relative;
+    width:8px;
+    border-radius:2px;
+    background:#FFFDF7;
+    overflow:hidden;
+  }
+  .candle.c1,.candle.c5{height:38px;}
+  .candle.c2,.candle.c4{height:44px;}
+  .candle.c3{height:50px;}
+  .candle .stripe{
+    position:absolute; inset:0;
+    background:repeating-linear-gradient(
+      -45deg,
+      transparent 0 4px,
+      var(--stripe,#FF9EC4) 4px 7px
+    );
+  }
+  .candle.c1 .stripe,.candle.c4 .stripe{--stripe:#8ED1C4;}
+  .candle.c2 .stripe,.candle.c5 .stripe{--stripe:#FFD166;}
+  .candle.c3 .stripe{--stripe:#B8A6E8;}
+  .candle .flame{
+    width:13px;height:19px;
+    background:radial-gradient(circle at 50% 72%, #FFF6C8 0%, #FFB347 55%, #FF7A45 100%);
+    border-radius:50% 50% 50% 50% / 62% 62% 38% 38%;
+    position:absolute;
+    left:50%; top:-15px;
+    transform:translateX(-50%);
+    animation:flicker 1.1s ease-in-out infinite;
+    transform-origin:bottom center;
+    box-shadow:0 0 10px 2px rgba(255,178,90,.55);
+  }
+  .candle.c2 .flame{animation-delay:.15s;}
+  .candle.c3 .flame{animation-delay:.3s;}
+  .candle.c4 .flame{animation-delay:.45s;}
+  .candle.c5 .flame{animation-delay:.6s;}
+  @keyframes flicker{
+    0%,100%{transform:translateX(-50%) rotate(-4deg) scale(1);}
+    50%{transform:translateX(-50%) rotate(4deg) scale(1.1);}
+  }
+  .candle .flame.out{opacity:0; animation:none; box-shadow:none;}
+  .smoke{
+    position:absolute;
+    left:50%; top:-14px;
+    width:8px; height:8px;
+    background:rgba(160,160,160,.55);
+    border-radius:50%;
+    transform:translateX(-50%);
+    animation:smokeRise 1s ease-out forwards;
+    pointer-events:none;
+  }
+  @keyframes smokeRise{
+    0%{opacity:.7; transform:translate(-50%,0) scale(.6);}
+    100%{opacity:0; transform:translate(-50%,-26px) scale(1.6);}
+  }
+
+  /* ---- cherry ---- */
+  .cherry{
+    position:absolute;
+    top:2px; right:26px;
+    z-index:6;
+  }
+  .cherry-ball{
+    display:block;
+    width:14px;height:14px;
+    border-radius:50%;
+    background:radial-gradient(circle at 35% 30%, #FF7A93, #D6314F 70%);
+    box-shadow:0 2px 4px rgba(0,0,0,.15);
+  }
+  .cherry-stem{
+    position:absolute;
+    left:50%; bottom:100%;
+    width:2px; height:12px;
+    background:#6B8E4E;
+    transform:translateX(-50%) rotate(12deg);
+    border-radius:2px;
+  }
+
+  /* ---- cake tiers ---- */
+  .cake{position:relative; z-index:2;}
+  .tier{position:relative;}
+  .tier-top{
+    width:150px;
+    height:46px;
+    margin:0 auto;
+    background:linear-gradient(180deg, #FFFBF2 0%, #FFF3DC 100%);
+    border-radius:14px 14px 0 0;
+    box-shadow:inset 0 -6px 0 rgba(0,0,0,.03);
+    position:relative;
+    overflow:hidden;
+  }
+  .sprinkles{position:absolute; inset:0;}
+  .sprinkles span{
+    position:absolute;
+    width:3px; height:9px;
+    border-radius:2px;
+  }
+  .drip-row{
+    display:flex;
+    width:150px;
+    margin:-1px auto 0;
+  }
+  .drip-row.drip-pink{width:220px;}
+  .drip-row span{
+    flex:1;
+    display:block;
+    border-radius:0 0 60% 60%;
+  }
+  .drip-cream span{background:#FFF3DC;}
+  .drip-pink span{background:#FFB6C9;}
+
+  .tier-bottom{
+    width:220px;
+    height:64px;
+    margin:-1px auto 0;
+    background:linear-gradient(180deg, #FFC7DA 0%, #FFB6C9 100%);
+    border-radius:0 0 10px 10px;
+    position:relative;
+    overflow:hidden;
+  }
+  .crumb-line{
+    position:absolute;
+    left:0; right:0;
+    height:2px;
+    background:rgba(255,255,255,.55);
+  }
+  .crumb-line.l1{top:22px;}
+  .crumb-line.l2{top:42px;}
+
+  .board{
+    width:236px;
+    height:8px;
+    margin:0 auto;
+    background:#FFE3EC;
+    border-radius:4px;
+    box-shadow:0 2px 3px rgba(122,84,104,.12);
+  }
+
+  .plate{
+    width:250px;
+    height:16px;
+    margin:2px auto 0;
+    background:linear-gradient(180deg,#ffffff,#F3E7EC);
+    border-radius:50%;
+    box-shadow:0 14px 22px rgba(122,84,104,.28);
+  }
+
+  .confetti-piece{
+    position:fixed;
+    top:-20px;
+    width:9px;height:14px;
+    z-index:60;
+    pointer-events:none;
+    animation:confettiFall linear forwards;
+  }
+  @keyframes confettiFall{
+    to{transform:translateY(110vh) rotate(540deg); opacity:.9;}
+  }
+
+  /* Reduced motion */
+  @media (prefers-reduced-motion: reduce){
+    .floaty,.candle .flame,.wish-star.glow,.starfield span,.confetti-piece,.smoke{animation:none !important;}
+  }
+
+  @media (max-width:480px){
+    .card{padding:28px 20px;}
+    h1,.display{font-size:1.5rem;}
+    .wish-star{font-size:2.8rem;}
+    .cake-scene{width:230px; transform:scale(.92);}
+  }
+
+  /* ---------- Global back button ---------- */
+  #backBtn{
+    position:fixed;
+    top:16px;
+    left:16px;
+    z-index:40;
+    width:44px;
+    height:44px;
+    border-radius:50%;
+    background:rgba(255,255,255,.85);
+    color:var(--plum);
+    font-size:1.2rem;
+    display:none;
+    align-items:center;
+    justify-content:center;
+    box-shadow:0 8px 18px rgba(122,84,104,.2);
+    backdrop-filter:blur(4px);
+  }
+  #backBtn.show{display:flex;}
+  body.on-space #backBtn{
+    background:rgba(255,255,255,.15);
+    color:#fff;
+    border:1px solid rgba(255,255,255,.3);
+  }
+</style>
+</head>
+<body>
+
+<button id="backBtn" onclick="goBack()" aria-label="ย้อนกลับ">←</button>
+
+<!-- ============ PAGE 1: LOGIN ============ -->
+<section id="page1" class="page warm active">
+  <div class="stage">
+    <div class="card">
+      <div class="heart-icon">💌</div>
+      <h1>สุขสันต์วันเกิดนะที่รัก</h1>
+      <p class="lead">ใส่วันเกิดอ้วนนน</p>
+      <input type="tel" id="pwInput" maxlength="8" placeholder=" (วว/ดด/ปปปป)" inputmode="numeric">
+      <div>
+        <button class="btn gold" onclick="checkPassword()">เขินง่ะ งิงิ</button>
+      </div>
+      <div id="loginMsg"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PAGE 2: BLESSING ============ -->
+<section id="page2" class="page warm">
+  <div class="stage">
+    <div class="card">
+      <h1>สุขสันต์วันเกิดน้าาา </h1>
+      <p class="lead">
+        ขอบคุณที่เกิดมานะ ขอบคุณที่เกิดมาแล้วเราได้เจอกัน<br><br>
+        ปีที่ผ่านมาพี่เก่งมาก ทั้งเรื่องงาน เรื่องเรียน เรื่องชีวิต และที่เก่งที่สุดคือเรื่องทนกับเค้าได้ทุกวัน <br><br>
+        สุขภาพแข็งแรง ไข้ไม่ขึ้น ใจไม่ท้อ และรักเค้าไปนานๆ นะ 💗<br><br>
+        สุขสันต์วันเกิด คนสำคัญของเค้า
+      </p>
+      <div class="nav-row"><button class="btn" onclick="goTo('page3')">ถัดไป →</button></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PAGE 3: NASA COSMIC BIRTHDAY ============ -->
+<section id="page3" class="page space">
+  <div class="starfield" id="stars3"></div>
+  <div class="stage">
+    <div class="card">
+      <div class="space-photo">
+        <img src="https://images-assets.nasa.gov/image/hubble_friday_02092024/hubble_friday_02092024~orig.jpg" alt="ภาพจากฮับเบิล" onerror="this.parentElement.style.display='none'">
+      </div>
+      <h2>รู้ไหมว่าวันเกิดพี่ จักรวาลก็ฉลองด้วย</h2>
+      <p class="lead">กล้องฮับเบิลของ NASA ถ่ายภาพอวกาศไว้ทุกวัน ลองไปดูสิว่าวันที่พี่เกิดเขาถ่ายอะไรไว้บ้างงง</p>
+      <div class="nav-row" style="display:flex; gap:12px; flex-wrap:wrap; justify-content:center;">
+        <a class="btn ghost" href="https://science.nasa.gov/mission/hubble/multimedia/what-did-hubble-see-on-your-birthday/" target="_blank" rel="noopener">ดูภาพวันเกิดของเธอ 🔭</a>
+        <button class="btn gold" onclick="goTo('page4')">ถัดไป →</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PAGE 4: FLOATING HEARTS & STARS ============ -->
+<section id="page4" class="page warm">
+  <div class="float-field" id="floatField"></div>
+  <div class="stage p4-hint">
+    <div class="card">
+      <h4>แตะดวงไหนก็ได้ที่ลอยอยู่ ✨</h4>
+      <p class="lead">ในนั้นมีคำที่อยากบอกเธอซ่อนอยู่ เต็มไปหมดเลยยย จิ้มให้ครบล่ะะะ</p>
+      <div class="nav-row"><button class="btn" onclick="goTo('page5')">ถัดไป →</button></div>
+    </div>
+  </div>
+</section>
+
+<div class="popup-overlay" id="popupOverlay">
+  <div class="popup-box">
+    <p id="popupText"></p>
+    <button class="btn small gold" onclick="closePopup()" style="margin-top:14px;">ปิด</button>
+  </div>
+</div>
+
+<!-- ============ PAGE 5: WISHING STAR ============ -->
+<section id="page5" class="page space">
+  <div class="starfield" id="stars5"></div>
+  <div class="stage stage-open">
+    <h2 id="wishTitle">รอดูดาวตกก่อนนะ...</h2>
+
+    <div class="meteor-stage" id="meteorStage">
+      <div class="meteor-layer" id="meteorLayer"></div>
+      <div class="wish-star" id="wishStar">
+        <svg viewBox="0 0 100 100" width="100%" height="100%">
+          <defs>
+            <radialGradient id="starGlow" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#FFFFFF"/>
+              <stop offset="45%" stop-color="#FFE9A8"/>
+              <stop offset="100%" stop-color="rgba(255,233,168,0)"/>
+            </radialGradient>
+          </defs>
+          <circle cx="50" cy="50" r="46" fill="url(#starGlow)"/>
+          <path d="M50 6 L59 41 L96 50 L59 59 L50 94 L41 59 L4 50 L41 41 Z" fill="#FFF9E6"/>
+          <path d="M50 22 L54 46 L78 50 L54 54 L50 78 L46 54 L22 50 L46 46 Z" fill="#FFFFFF" opacity=".9"/>
+        </svg>
+      </div>
+    </div>
+
+    <p class="lead wish-caption" id="wishCaption">ขอพรแล้วกดที่ดาวเลยย ดาวที่ตกลงมาจะลอยกลับไปส่งคำขอของพี่ให้เป็นจริงนะ</p>
+    <div class="nav-row"><button class="btn gold" onclick="goTo('page6')">ถัดไป →</button></div>
+  </div>
+</section>
+
+<!-- ============ PAGE 6: 5 QUESTIONS ============ -->
+<section id="page6" class="page warm">
+  <div class="stage">
+    <div class="card">
+      <h2>ขอถามอะไรหน่อยยย</h2>
+      <p class="lead" style="margin-bottom:0;">ตอบเค้ามาเลยยยย</p>
+
+      <div class="chat-log" id="chatLog"></div>
+      <div id="activeQ"></div>
+
+      <div class="nav-row" id="q6next" style="display:none;">
+        <button class="btn" onclick="goTo('page7')">ถัดไป →</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PAGE 7: 30 LOVE COUPONS ============ -->
+<section id="page7" class="page warm">
+  <div class="stage">
+    <div class="card">
+      <h2>คูปองรักจากเค้า 30 ใบ 🎟️</h2>
+      <p class="lead">เก็บไว้ใช้กับเค้าได้เลย ใช้ได้ทุกใบ ไม่มีวันหมดอายุ แคปมาใช้เยยย</p>
+      <div id="couponContainer"></div>
+      <div class="nav-row"><button class="btn" onclick="goTo('page8')">ถัดไป →</button></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PAGE 8: BLOW THE CAKE ============ -->
+<section id="page8" class="page warm">
+  <div class="stage">
+    <div class="card">
+      <h2>ขอให้พี่มีความสุขมากๆ อายุยืนๆ อยู่กับเค้าไปนานๆเป็นความสุขของทุกคน มีปัญหาก็ขอให้ผ่านไปด้วยดี ขอให้มีคนรักเยอะๆ และรักเค้าเยอะๆ เป็นเรื่องราวในชีวิตเค้าไปนานๆเลยย 🎂</h2>
+      <div class="cake-scene">
+        <div class="candle-row" id="candleRow">
+          <div class="candle c1"><span class="stripe"></span><span class="flame"></span></div>
+          <div class="candle c2"><span class="stripe"></span><span class="flame"></span></div>
+          <div class="candle c3"><span class="stripe"></span><span class="flame"></span></div>
+          <div class="candle c4"><span class="stripe"></span><span class="flame"></span></div>
+          <div class="candle c5"><span class="stripe"></span><span class="flame"></span></div>
+        </div>
+
+        <div class="cherry"><span class="cherry-stem"></span><span class="cherry-ball"></span></div>
+
+        <div class="cake">
+          <div class="tier tier-top">
+            <div class="sprinkles">
+              <span style="left:12%; top:20%; background:#FF8FAB; transform:rotate(15deg);"></span>
+              <span style="left:28%; top:55%; background:#8ED1C4; transform:rotate(-20deg);"></span>
+              <span style="left:45%; top:25%; background:#FFD166; transform:rotate(40deg);"></span>
+              <span style="left:62%; top:60%; background:#B8A6E8; transform:rotate(-10deg);"></span>
+              <span style="left:78%; top:30%; background:#FF8FAB; transform:rotate(25deg);"></span>
+              <span style="left:88%; top:58%; background:#8ED1C4; transform:rotate(-35deg);"></span>
+              <span style="left:20%; top:75%; background:#FFD166; transform:rotate(10deg);"></span>
+              <span style="left:55%; top:80%; background:#B8A6E8; transform:rotate(-15deg);"></span>
+            </div>
+          </div>
+          <div class="drip-row drip-cream">
+            <span style="height:14px;"></span><span style="height:22px;"></span><span style="height:12px;"></span>
+            <span style="height:24px;"></span><span style="height:15px;"></span><span style="height:20px;"></span>
+            <span style="height:12px;"></span>
+          </div>
+          <div class="tier tier-bottom">
+            <div class="crumb-line l1"></div>
+            <div class="crumb-line l2"></div>
+          </div>
+          <div class="drip-row drip-pink">
+            <span style="height:16px;"></span><span style="height:26px;"></span><span style="height:14px;"></span>
+            <span style="height:22px;"></span><span style="height:13px;"></span><span style="height:24px;"></span>
+            <span style="height:16px;"></span><span style="height:20px;"></span>
+          </div>
+          <div class="board"></div>
+        </div>
+        <div class="plate"></div>
+      </div>
+
+      <button class="btn gold" id="blowBtn" onclick="blowCake()">เป่าเทียนเลย!</button>
+      <div class="nav-row" id="cakeNext" style="display:none;">
+        <button class="btn" onclick="goTo('page9')">ไปหน้าสุดท้าย →</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PAGE 9: THANK YOU & LOVE YOU ============ -->
+<section id="page9" class="page space">
+  <div class="starfield" id="stars9"></div>
+  <div class="stage">
+    <div class="card">
+      <h1>ขอบคุณที่เป็นพี่นะ</h1>
+      <p class="lead">
+        ขอบคุณที่อดทนอ่านมาจนถึงหน้าสุดท้าย 😄<br><br>
+        ให้เค้าเป็นส่วนนึงในชีวิตพี่<br><br>
+        ให้เค้าได้มีความสุขไปกับพี่ เศร้าไปกับพี่ ทุกข์ใจไปกับพี่ เค้าจะอยู่กับพี่ในทุกเวลาเลยนะ<br><br>
+        รักพี่ที่สุด ถ้าพี่ไม่รู้ เค้าก็จะบอกจนกว่าพี่จะรู้เลย 💖
+      </p>
+    </div>
+  </div>
+</section>
+
+<script>
+/* ---------------- Navigation ---------------- */
+const pageOrder = ['page1','page2','page3','page4','page5','page6','page7','page8','page9'];
+const spacePages = ['page3','page5','page9'];
+let historyStack = ['page1'];
+
+function goTo(id, fromBack){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo({top:0,behavior:'instant'});
+
+  if(!fromBack){
+    historyStack.push(id);
+  }
+
+  const backBtn = document.getElementById('backBtn');
+  if(id === 'page1'){
+    backBtn.classList.remove('show');
+  }else{
+    backBtn.classList.add('show');
+  }
+  document.body.classList.toggle('on-space', spacePages.includes(id));
+
+  if(id === 'page5' && typeof playMeteor === 'function'){
+    playMeteor();
+  }
+}
+
+function goBack(){
+  if(historyStack.length <= 1) return;
+  historyStack.pop();
+  const prev = historyStack[historyStack.length - 1];
+  goTo(prev, true);
+}
+
+/* ---------------- Page 1: Login ---------------- */
+function checkPassword(){
+  const val = document.getElementById('pwInput').value.trim();
+  const msg = document.getElementById('loginMsg');
+  const card = document.querySelector('#page1 .card');
+  if(val === '06102549'){
+    msg.textContent = 'ใช่เลย! ';
+    msg.style.color = '#5A8F6B';
+    setTimeout(()=>goTo('page2'), 500);
+  }else{
+    msg.textContent = 'ผิดจร้าาาาา ';
+    card.classList.remove('shake');
+    void card.offsetWidth;
+    card.classList.add('shake');
+  }
+}
+document.getElementById('pwInput').addEventListener('keydown', e=>{
+  if(e.key === 'Enter') checkPassword();
+});
+
+/* ---------------- Starfields ---------------- */
+function buildStars(id, count){
+  const el = document.getElementById(id);
+  if(!el) return;
+  let html = '';
+  for(let i=0;i<count;i++){
+    const top = Math.random()*100;
+    const left = Math.random()*100;
+    const delay = (Math.random()*3.5).toFixed(2);
+    const size = (Math.random()*2+1).toFixed(1);
+    html += `<span style="top:${top}%; left:${left}%; animation-delay:${delay}s; width:${size}px; height:${size}px;"></span>`;
+  }
+  el.innerHTML = html;
+}
+buildStars('stars3', 60);
+buildStars('stars5', 70);
+buildStars('stars9', 70);
+
+/* ---------------- Page 4: floating hearts/stars ---------------- */
+const heartMessages = [
+  'เค้ารักพี่มากกว่าที่พี่คิดอีกนะรู้มั้ย',
+  'มีความสุขให้มากๆน้า เค้าจะอยู่มีความสุขไปกับอ้วนเอง',
+  'ขอโทษที่ดื้อชอบชวนทะเลาะก้มีอ้วนคนเดียวไม่ทะเลาะกับอ้วนแล้วจะให้ทะเลาะกับครายอ่าาาา',
+  'ขอบคุณที่วันนั้นทักมาจีบเค้านะ แล้วก็ไอ้มุขเสี่ยวๆนั่นด้วย5555',
+  'อยู่กับเค้าไปนานๆจนหัวหงอกทั้งคู่เลยนะ แล้วค่อยผลัดกันย้อม',
+  'เค้าอยากเจออวนทู๊กกกกกกกกวันเลยยย',
+  'ให้เค้าเป็นคนแรกในวันเกิดพี่ของทุกปีหลังจากนี้เลยนะ',
+  'อดทนกับเค้าได้เก่งมาก น่ารักที่สุ้ดดดด',
+  'เค้าอยากให้พี่มีความสุขให้มากกว่าเค้าอีกน๊าาาา',
+  'สาดไปสมาชิกกกก'
+];
+const icons = ['❤️','⭐','💖','✨','💗','🌟','💕','⭐','❤️','✨'];
+function buildFloaters(){
+  const field = document.getElementById('floatField');
+  let html = '';
+  const positions = [
+    [8,12],[22,68],[38,22],[50,80],[55,10],
+    [85,55],[78,15],[85,72],[45,88],[30,90]
+  ];
+  for(let i=0;i<10;i++){
+    const [top,left] = positions[i];
+    const dur = (3.5 + Math.random()*2.5).toFixed(2);
+    const delay = (Math.random()*2).toFixed(2);
+    html += `<span class="floaty" style="top:${top}%; left:${left}%; animation-duration:${dur}s; animation-delay:${delay}s;" onclick="showHeartMsg(${i})">${icons[i]}</span>`;
+  }
+  field.innerHTML = html;
+}
+buildFloaters();
+function showHeartMsg(i){
+  document.getElementById('popupText').textContent = heartMessages[i];
+  document.getElementById('popupOverlay').classList.add('show');
+}
+function closePopup(){
+  document.getElementById('popupOverlay').classList.remove('show');
+}
+
+/* ---------------- Page 5: wishing star ---------------- */
+const wishStar = document.getElementById('wishStar');
+let starLanded = false;
+
+function playMeteor(){
+  starLanded = false;
+  const layer = document.getElementById('meteorLayer');
+  const caption = document.getElementById('wishCaption');
+  const title = document.getElementById('wishTitle');
+
+  layer.innerHTML = '';
+  wishStar.classList.remove('landed','glow','fly');
+  caption.classList.remove('show');
+  title.textContent = 'รอดูดาวตกก่อนนะ...';
+  title.style.opacity = '1';
+
+  const meteor = document.createElement('div');
+  meteor.className = 'meteor';
+  layer.appendChild(meteor);
+
+  meteor.addEventListener('animationend', function onFall(){
+    meteor.removeEventListener('animationend', onFall);
+    meteor.remove();
+    wishStar.classList.add('landed');
+    starLanded = true;
+    title.style.opacity = '0';
+    caption.classList.add('show');
+  });
+}
+
+function spawnSparkles(){
+  const wrap = document.getElementById('meteorStage');
+  for(let i=0;i<8;i++){
+    const s = document.createElement('span');
+    s.className = 'sparkle';
+    const angle = Math.random()*Math.PI*2;
+    const dist = 30 + Math.random()*40;
+    s.style.setProperty('--dx', Math.cos(angle)*dist + 'px');
+    s.style.setProperty('--dy', Math.sin(angle)*dist + 'px');
+    s.style.left = '50%';
+    s.style.top = '50%';
+    wrap.appendChild(s);
+    setTimeout(()=>s.remove(), 650);
+  }
+}
+let sparkleInterval = null;
+function startWish(){
+  if(!starLanded) return;
+  wishStar.classList.remove('fly');
+  wishStar.classList.add('glow');
+  sparkleInterval = setInterval(spawnSparkles, 180);
+}
+function endWish(){
+  if(!starLanded) return;
+  wishStar.classList.remove('glow');
+  clearInterval(sparkleInterval);
+  wishStar.classList.add('fly');
+  wishStar.addEventListener('animationend', function reset(){
+    wishStar.classList.remove('fly');
+    wishStar.removeEventListener('animationend', reset);
+  });
+}
+wishStar.addEventListener('mousedown', startWish);
+wishStar.addEventListener('touchstart', e=>{e.preventDefault(); startWish();}, {passive:false});
+wishStar.addEventListener('mouseup', endWish);
+wishStar.addEventListener('mouseleave', ()=>{ if(wishStar.classList.contains('glow')) endWish(); });
+wishStar.addEventListener('touchend', e=>{e.preventDefault(); endWish();}, {passive:false});
+
+/* ---------------- Page 6: questions (sequential chat) ---------------- */
+const questions = [
+ {
+    label:'1. แฟนชอบกินอะไรที่สุด?',
+    type:'text',
+    placeholder:'พิมพ์คำตอบตรงนี้...',
+    reply:a=>`ไว้เค้าทำให้กิน`
+  },
+  {
+    label:'2. ชอบทำอะไรที่สุดเวลาอยู่ด้วยกัน?',
+    type:'choice',
+    options:['กอดกันเฉยๆ','คุยกันทั้งคืน','แซวกันขำๆ','นอนดูหนังด้วยกัน'],
+    reply:a=>`เสียดายล่ะสิ ไม่มีคำตอบนั้นในหัว ไออ้วนทะลึ่ง`
+  },
+  {
+    label:'3. คิดว่าเราทำอะไรแล้วน่ารักที่สุด?',
+    type:'text',
+    placeholder:'พิมพ์คำตอบตรงนี้...',
+    reply:a=>`จริงๆเค้าก็น่ารักตลอดเวลาอะแหละ เห้อออ`
+  },
+  {
+    label:'4. แฟนชอบให้เราทำตัวยังไง?',
+    type:'choice',
+    options:['หวานๆ','กวนๆ น่ารัก','แคร์เยอะๆ','ตลกจนหัวเราะ'],
+    reply:a=>`สาดไปสมาชิกกกก`
+  },
+  {
+    label:'5. แฟนอยากให้เราทำอะไรให้มากที่สุด?',
+    type:'text',
+    placeholder:'พิมพ์คำตอบตรงนี้...',
+    reply:a=>`ไปทำกันเลยม่ะะ`
+  }
+];
+let currentQ = 0;
+let currentPick = null;
+
+function renderQuestion(){
+  const box = document.getElementById('activeQ');
+  if(currentQ >= questions.length){
+    box.innerHTML = '';
+    document.getElementById('q6next').style.display = 'block';
+    return;
+  }
+  const q = questions[currentQ];
+  currentPick = null;
+  let inner = `<div class="q-block"><label>${q.label}</label>`;
+  if(q.type === 'text'){
+    inner += `<input type="text" id="qActiveInput" placeholder="${q.placeholder}">`;
+  }else{
+    inner += `<div class="choice-row" id="qActiveChoices">`;
+    q.options.forEach(opt=>{
+      inner += `<button class="choice-btn" onclick="pickChoice(this,'${opt.replace(/'/g,"\\'")}')">${opt}</button>`;
+    });
+    inner += `</div>`;
+  }
+  inner += `<div class="q-hint" id="qHint"></div>`;
+  inner += `<button class="btn gold" onclick="submitCurrent()">ส่งคำตอบ</button></div>`;
+  box.innerHTML = inner;
+}
+
+function pickChoice(btn, value){
+  document.querySelectorAll('#qActiveChoices .choice-btn').forEach(b=>b.classList.remove('picked'));
+  btn.classList.add('picked');
+  currentPick = value;
+}
+
+function addBubble(text, cls){
+  const log = document.getElementById('chatLog');
+  const div = document.createElement('div');
+  div.className = 'bubble ' + cls;
+  div.textContent = text;
+  log.appendChild(div);
+}
+
+function submitCurrent(){
+  const q = questions[currentQ];
+  let answer = '';
+  if(q.type === 'text'){
+    answer = document.getElementById('qActiveInput').value.trim();
+    if(!answer){
+      document.getElementById('qHint').textContent = 'ตอบก่อนจ้าอ้วนนน';
+      return;
+    }
+  }else{
+    if(!currentPick){
+      document.getElementById('qHint').textContent = 'ตอบก่อนไออ้วนนนน';
+      return;
+    }
+    answer = currentPick;
+  }
+
+  addBubble(answer, 'me');
+  document.getElementById('activeQ').innerHTML = '';
+
+  setTimeout(()=>{
+    addBubble(q.reply(answer), 'reply');
+    currentQ++;
+    setTimeout(renderQuestion, 450);
+  }, 500);
+}
+
+renderQuestion();
+
+/* ---------------- Page 7: coupons ---------------- */
+const couponData = [
+  {cat:'💌 หมวดที่ 1: ความอบอุ่นในทุกวัน', items:[
+    ['คูปองคอลทิ้งไว้ตอนนอน','ตลอดคืนจนกว่าเครื่องจะดับ'],
+    ['คูปองโทรปลุกตอนเช้า','แฟนสั่งเวลาไหน จะฝืนตื่นมาปลุกให้ทัน'],
+    ['คูปองตอบแชทไวแสง','3 ชั่วโมงติดต่อกัน ห้ามดองแชทเด็ดขาด'],
+    ['คูปองส่งเซลฟี่รายงานตัว','ขอตอนไหนต้องถ่ายส่งให้ทันที'],
+    ['คูปองห้ามส่งสติกเกอร์กวนประสาท','24 ชั่วโมง ให้พิมพ์คุยดีๆ'],
+    ['คูปองเปิดกล้องทำหน้าตลกให้ดู','ใช้ได้ตอนแฟนเครียดจากงานหรือเรียน'],
+  ]},
+  {cat:'🎮 หมวดที่ 2: กิจกรรมร่วมกันระยะไกล', items:[
+    ['คูปองดูหนัง/ซีรีส์พร้อมกัน','1 เรื่อง ให้แฟนเป็นคนเลือก'],
+    ['คูปองแบกเข้าทีมเล่นเกม','2 ชั่วโมงเต็ม ห้ามบ่นถ้าเราเล่นแจก'],
+    ['คูปองร้องเพลงให้ฟังในสาย','ร้องจนกว่าแฟนจะหลับ'],
+    ['คูปองนั่งฟังแฟนบ่นเรื่องชีวิต','ไม่จำกัดเวลา ฟังอย่างเดียวห้ามเถียง'],
+    ['คูปองเล่นเกมทายใจ','1 เกม แก้เบื่อตอนคิดถึงกัน'],
+    ['คูปองแชร์เพลย์ลิสต์เพลงรัก','จัดเพลงที่ฟังแล้วคิดถึงแฟนให้'],
+  ]},
+  {cat:'🕊️ หมวดที่ 3: ตัวช่วยตอนงอน', items:[
+    ['บัตรง้อด่วนผ่านสาย','ต้องโทรเคลียร์ทันที ห้ามคาใจข้ามคืน'],
+    ['คูปองห้ามงอนห้ามประชด','12 ชั่วโมง คุยกันด้วยเหตุผล'],
+    ['คูปองอัดเสียงบอกรักส่งให้','1 ข้อความเสียงยาว 1 นาทีเต็ม'],
+    ['คูปองเปลี่ยนเรื่องคุยทันที','ใช้เบรกตอนแชทเริ่มตึงเครียด'],
+    ['คูปองพิมพ์บอกรัก 20 บรรทัด','ห้ามก๊อปวาง ต้องพิมพ์สดจากใจ'],
+    ['คูปองยอมรับผิดไม่มีเงื่อนไข','1 ครั้งในแชท ยอมรับว่าเราผิดเอง'],
+  ]},
+  {cat:'👑 หมวดที่ 4: สิทธิ์พิเศษและคำสั่ง', items:[
+    ['บัตรคำสั่งให้เราชมแฟน','ต้องชม 10 ประโยค ห้ามซ้ำ'],
+    ['คูปองขอเวลานอกไปเล่นเกม','2 ชั่วโมง แฟนสาวจะไม่ตามไม่จิก'],
+    ['คูปองเรียกใช้งานด่วน','ทักมาต้องตอบหรือรับสายภายใน 1 นาที'],
+    ['คูปองตามใจแฟน 1 วัน','อยากคุยหรือทำอะไรออนไลน์ ยอมหมด'],
+    ['คูปองห้ามดุตอนตื่นสาย','1 ครั้ง ยอมปล่อยให้ลุกเมื่อไหร่ก็ได้'],
+    ['คูปองขอยกเว้นการทำโทษ','ใช้ล้างความผิดเล็กๆ น้อยๆ ได้ 1 ครั้ง'],
+  ]},
+  {cat:'📍 หมวดที่ 5: สิทธิ์พิเศษเมื่อได้เจอกัน', items:[
+    ['คูปองกอดชาร์จแบตแน่นๆ','ใช้ทันทีที่ได้เจอหน้ากันครั้งแรกของวัน'],
+    ['คูปองเดินจับมือห้ามปล่อย','ตลอดเวลาที่เดินเที่ยวด้วยกันวันนั้น'],
+    ['คูปองซบไหล่ตลอดการเดินทาง','ตอนนั่งรถสาธารณะหรือดูหนังด้วยกัน'],
+    ['คูปองห้ามสาย','วันนัดเจอกัน ต้องไปถึงก่อนหรือตรงเวลาเป๊ะ'],
+    ['คูปองยอมให้ถ่ายรูปตอนเผลอ','ห้ามบ่นห้ามแย่งโทรศัพท์มาลบ'],
+    ['คูปองบอกรักดังๆ','กระซิบหรือบอกรักข้างหูให้ชื่นใจ 1 ครั้ง'],
+  ]},
+];
+function buildCoupons(){
+  const container = document.getElementById('couponContainer');
+  let html = '';
+  let n = 1;
+  couponData.forEach(group=>{
+    html += `<h3 class="coupon-cat">${group.cat}</h3><div class="coupon-grid">`;
+    group.items.forEach(([title,cond])=>{
+      html += `
+        <div class="ticket">
+          <div class="ticket-inner">
+            <div class="ticket-face front" onclick="toggleTicket(this)">
+              <span class="num">ใบที่ ${n}</span>
+              <p class="title">${title}</p>
+              <span class="tap-hint">แตะเพื่อดู </span>
+            </div>
+            <div class="ticket-face back">
+              <div class="ticket-main" onclick="toggleTicket(this)">
+                <span class="num">ใบที่ ${n}</span>
+                <p class="title">${title}</p>
+                <p class="cond">${cond}</p>
+                <span class="used-stamp">ใช้แล้ว 💗</span>
+              </div>
+              <div class="ticket-divider">
+                <span class="notch notch-top"></span>
+                <span class="notch notch-bottom"></span>
+              </div>
+              <div class="ticket-tear">
+                <span class="tear-icon">🎫</span>
+                <button class="use-btn" onclick="useCoupon(event,this)">ใช้เลย</button>
+              </div>
+            </div>
+          </div>
+        </div>`;
+      n++;
+    });
+    html += `</div>`;
+  });
+  container.innerHTML = html;
+}
+buildCoupons();
+
+function toggleTicket(el){
+  const ticket = el.closest('.ticket');
+  if(ticket) ticket.classList.toggle('open');
+}
+
+function useCoupon(evt, btn){
+  evt.stopPropagation();
+  const back = btn.closest('.ticket-face.back');
+  const tear = btn.closest('.ticket-tear');
+  const main = back.querySelector('.ticket-main');
+  tear.classList.add('torn');
+  main.classList.add('used');
+  btn.disabled = true;
+}
+
+/* ---------------- Page 8: cake ---------------- */
+function blowCake(){
+  const candles = document.querySelectorAll('#candleRow .candle');
+  candles.forEach(candle=>{
+    const flame = candle.querySelector('.flame');
+    flame.classList.add('out');
+    const smoke = document.createElement('span');
+    smoke.className = 'smoke';
+    candle.appendChild(smoke);
+    setTimeout(()=>smoke.remove(), 1000);
+  });
+  document.getElementById('blowBtn').style.display = 'none';
+  document.getElementById('cakeNext').style.display = 'block';
+  launchConfetti();
+}
+function launchConfetti(){
+  const colors = ['#F6C9D3','#E3A857','#B79CED','#8FD3C4','#FFD3E0'];
+  for(let i=0;i<70;i++){
+    const c = document.createElement('div');
+    c.className = 'confetti-piece';
+    c.style.left = Math.random()*100 + 'vw';
+    c.style.background = colors[Math.floor(Math.random()*colors.length)];
+    c.style.animationDuration = (2 + Math.random()*1.8) + 's';
+    c.style.transform = `rotate(${Math.random()*360}deg)`;
+    document.body.appendChild(c);
+    setTimeout(()=>c.remove(), 4000);
+  }
+}
+</script>
+</body>
+</html>
